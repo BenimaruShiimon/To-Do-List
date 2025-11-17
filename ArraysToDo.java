@@ -1,65 +1,65 @@
 package OOP.Collections.ArrayList.ToDoList;
 
-public class ArraysToDo implements List {
-    private static int size = 0;
-    private final Case[] array = new Case[10];
+import java.util.ArrayList;
+
+
+public class ArraysToDo implements List<Case> {
+    private ArrayList<Case> toDoList = new ArrayList<>();
 
     @Override
     public void add(Case cas) {
-        array[size] = cas;
-        size++;
+        toDoList.add(cas);
     }
 
     @Override
     public Case get(int index) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index >= toDoList.size()) {
             throw new IndexOutOfBoundsException();
         }
-        return array[index];
+        return toDoList.get(index);
     }
 
 
     @Override
     public void remove(int index) {
-        if (array[index] == null) {
+        if (toDoList.isEmpty()) {
             System.out.println("Дела по такому номеру в списке нет!");
             return;
         }
-        for (int j = index; j < size - 1; j++) {
-            array[j] = array[j + 1];
-        }
+        toDoList.remove(index);
         System.out.println("Удалено!");
-        size--;
     }
 
     @Override
-    public void removeAt(String s) {
-        boolean searchElement = true;
-        if (!searchElement) {
-            System.out.println("Дела по такому тексту не найдено!");
-        }
-        for (int i = 0; i < size; i++) {
-            if (s.equals(array[i].getText())) {
+    public void removeAt(String text) {
+        boolean searchElement = false;
+        for (int i = 0; i < toDoList.size(); i++) {
+            if (toDoList.get(i).getText().equals(text)) {
                 remove(i);
+                searchElement = true;
+                break;
             }
         }
+            if (!searchElement) {
+                System.out.println("Дела по такому тексту не найдено!");
+            }
     }
 
     @Override
     public void printAll() {
-        if (size == 0) {
+        if (toDoList.isEmpty()) {
             System.out.println("Список дел пуст!");
         }
-        for (int i = 0; i < size; i++) {
-            System.out.println((i + 1) + ". " + array[i].getText());
+        for (int i = 0; i < toDoList.size(); i++) {
+            System.out.println((i + 1) + ". " + toDoList.get(i).getText());
         }
     }
 
     @Override
-    public void removeAll(String s) {
-        String search = s.toLowerCase();
-        for (int i = size - 1; i >= 0; i--) { //идем с конца списка, потому что в обычном варианте i++ список сдвигает вправо и можно пропустить задачу
-            if (array[i].getText().toLowerCase().contains(search)) {
+    public void removeAll(String text) {
+        String search = text.toLowerCase();
+        for (int i = toDoList.size() - 1; i >= 0; i--) { //идем с конца списка, потому что в обычном варианте i++ список сдвигает вправо и можно пропустить задачу
+            if (toDoList.get(i).getText().toLowerCase().contains(search)) {
                 remove(i);
             }
         }
