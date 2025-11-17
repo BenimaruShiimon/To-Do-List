@@ -3,15 +3,13 @@ package OOP.Collections.ArrayList.ToDoList;
 import java.util.ArrayList;
 
 
-public class ArraysToDo implements List<Case> {
-    private ArrayList<Case> toDoList = new ArrayList<>();
+public class ArraysToDo {
+    private final ArrayList<Case> toDoList = new ArrayList<>();
 
-    @Override
     public void add(Case cas) {
         toDoList.add(cas);
     }
 
-    @Override
     public Case get(int index) {
         if (index < 0 || index >= toDoList.size()) {
             throw new IndexOutOfBoundsException();
@@ -19,8 +17,6 @@ public class ArraysToDo implements List<Case> {
         return toDoList.get(index);
     }
 
-
-    @Override
     public void remove(int index) {
         if (toDoList.isEmpty()) {
             System.out.println("Дела по такому номеру в списке нет!");
@@ -30,7 +26,6 @@ public class ArraysToDo implements List<Case> {
         System.out.println("Удалено!");
     }
 
-    @Override
     public void removeAt(String text) {
         boolean searchElement = false;
         for (int i = 0; i < toDoList.size(); i++) {
@@ -40,12 +35,11 @@ public class ArraysToDo implements List<Case> {
                 break;
             }
         }
-            if (!searchElement) {
-                System.out.println("Дела по такому тексту не найдено!");
-            }
+        if (!searchElement) {
+            System.out.println("Дела по такому тексту не найдено!");
+        }
     }
 
-    @Override
     public void printAll() {
         if (toDoList.isEmpty()) {
             System.out.println("Список дел пуст!");
@@ -55,7 +49,6 @@ public class ArraysToDo implements List<Case> {
         }
     }
 
-    @Override
     public void removeAll(String text) {
         String search = text.toLowerCase();
         for (int i = toDoList.size() - 1; i >= 0; i--) { //идем с конца списка, потому что в обычном варианте i++ список сдвигает вправо и можно пропустить задачу
